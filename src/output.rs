@@ -39,8 +39,11 @@ impl Output {
                 self.editor_contents.push('~');
             }
             else {
+                // let len = cmp::min(self.editor_rows.get_row(file_row).len() - self.cursor_controller.column_offset, screen_columns);
+                // self.editor_contents.push_str(&self.editor_rows.get_row(file_row)[self.cursor_controller.column_offset..(len+file_column)])
                 let len = cmp::min(self.editor_rows.get_row(file_row).len(), screen_columns);
                 self.editor_contents.push_str(&self.editor_rows.get_row(file_row)[..len])
+
             }
 
             queue!(
@@ -70,7 +73,6 @@ impl Output {
     }
 
     pub(crate) fn move_cursor(&mut self, direction:char, win_size: (usize, usize)) {
-        let text_limits = (self.editor_rows.number_of_rows(), self.editor_rows.get_row(self.cursor_controller.cursor_y + self.cursor_controller.row_offset).len());
-        self.cursor_controller.move_cursor(direction, self.editor_rows.clone(), win_size);
+        self.cursor_controller.move_cursor(direction, &self.editor_rows, win_size);
     }
 }

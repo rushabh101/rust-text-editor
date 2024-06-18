@@ -1,7 +1,6 @@
 use std::{env, fs};
 use std::path::Path;
 
-#[derive(Clone)]
 pub struct EditorRows {
     row_contents: Vec<Box<str>>,
 }
